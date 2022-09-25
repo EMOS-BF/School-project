@@ -1,0 +1,36 @@
+{% extends 'main.html'%}
+
+{% block contenue%}
+
+	<div class="col-md-12">
+		<div class="card card-body">
+			<h5>Cours:</h5>
+			<hr>
+			<a class="btn btn-primary  btn-sm btn-block" href="{% url 'ajout_cours' %}">Ajouter un Cours</a>
+			<table class="table table-sm">
+			<tr>
+				<th>id</th>
+				<th>Enseignant</th>
+				<th>Nombre d'heure</th>
+				<th>date</th>
+				<th>Module</th>
+				<th>Modifier</th>
+				<th>Supprimer</th>
+			</tr>
+			{% for cours in Cours %}
+			<tr>
+			<th>{{cours.id}}</th>
+			<th>{{cours.Enseignant}}</th>
+			<th>{{cours.nombre_heure}}</th>
+			<th>{{cours.date}}</th>
+			<th>{{cours.Module}}</th>
+			<th><a class="btn btn-sm btn-info" href="{% url 'modifier_cours' cours.id %}">Modifier le Cours</a></th>
+			<th><a class="btn btn-sm btn-danger" href="{% url 'supprimer_cours' cours.id %}">Supprimer le Cours</a></th>
+			</tr>
+			{% endfor %}
+			</table>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

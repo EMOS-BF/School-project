@@ -1,0 +1,16 @@
+{% extends 'main.html'%}
+
+{% block contenue%}
+<div class="row">
+        <div class="col-md-6">
+            <div class="card card-body">
+<p>Voulez-vous supprimer l'eleve?</p>
+<form action="{% url 'supprimer_eleve' item.INE_eleve %}" method="POST">
+   {% csrf_token %}
+    <a class="btn btn-warning " href="{% url 'acceuil' %}">Annuler</a>
+    <button type="submit" class="btn btn-danger">Confirmer</button>
+</form>
+            </div>
+        </div>
+</div>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'main.html'%}
+
+{% block contenue %}
+<br>
+<div class="row">
+	<div class="col-md-12">
+        <h1>Bienvenue dans notre application de gestion des absences</h1>
+		<h5>Eleves :</h5>
+		<hr>
+		<div class="card card-body">
+			<a class="btn btn-primary  btn-sm btn-block" href="{% url 'ajout_eleve' %}">Ajouter un Elève</a>
+			<table class="table table-sm">
+				<tr>
+                    <th>INE de l'élève</th>
+					<th>Nom</th>
+					<th>Prenom</th>
+                    <th>date de naissance</th>
+                    <th>filière</th>
+                    <th>Classe</th>
+					<th>est chef </th>
+					<th>Mise à Jour</th>
+					<th>Supprimer</th>
+					<th>details</th>
+				</tr>
+				{% for Eleve in Eleves %}
+					<tr>
+					<th>{{Eleve.INE_eleve}}</th>
+					<th>{{Eleve.nom_eleve}}</th>
+					<th>{{Eleve.prenom_eleve}}</th>
+					<th>{{Eleve.date_de_naissance}}</th>
+					<th>{{Eleve.filiere}}</th>
+					<th>{{Eleve.classe}}</th>
+					<th>{{Eleve.est_chef}}</th>
+					<th><a class="btn btn-sm btn-info" href="{% url 'gestionIndividuel' Eleve.INE_eleve %}">Details</a></th>
+					<th><a class="btn btn-sm btn-info" href="{% url 'modifier_eleve' Eleve.INE_eleve %}"> Modifier</a></th>
+					<th><a class="btn btn-sm btn-danger" href="{%url 'supprimer_eleve' Eleve.INE_eleve %}"> Supprimer</a></th>
+					</tr>
+				{% endfor %}
+
+			</table>
+		</div>
+	</div>
+</div>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'main.html'%}
+
+{% block contenue%}
+<div class="form-group">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card card-body">
+        <form action="" method="POST" class="post-form">
+            <!--pour cripter les infos-->
+            {% csrf_token %}
+            {{form.as_p}}
+            <button type="submit" class="save btn">Envoyer</button>
+        </form>
+            </div>
+        </div>
+        </div>
+</div>
+{% endblock %}

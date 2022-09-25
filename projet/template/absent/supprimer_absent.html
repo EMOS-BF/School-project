@@ -1,0 +1,16 @@
+{% extends 'main.html'%}
+
+{% block contenue%}
+<div class="row">
+        <div class="col-md-6">
+            <div class="card card-body">
+<p>Voulez-vous supprimer l'absent?</p>
+<form action="{% url 'supprimer_absent' item.id %}" method="POST">
+   {% csrf_token %}
+    <a class="btn btn-warning" href="{% url 'absent' %}">Annuler</a>
+    <button type="submit" class="btn btn-danger" href="{% url 'absent' %}">Confirmer</button>
+</form>
+            </div>
+        </div>
+</div>
+{% endblock %}

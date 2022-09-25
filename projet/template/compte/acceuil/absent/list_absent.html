@@ -1,0 +1,48 @@
+{% extends 'main.html'%}
+
+{% block contenue%}
+	<div class="col-md-12">
+		<div class="card card-body">
+			<h5>Absents:</h5>
+			<hr>
+			<a class="btn btn-primary  btn-sm btn-block" href="{% url 'ajout_absent' %}">Ajouter un absent</a>
+			<table class="table table-sm">
+			<tr>
+				<th>id</th>
+				<th>Elève</th>
+				<th>Cours</th>
+				<th>motif</th>
+				<th>Modifier</th>
+				<th>Supprimer</th>
+			</tr>
+			{% for Absent in Absents %}
+			<tr>
+			<th>{{Absent.id}}</th>
+			<th>{{Absent.Eleve}}</th>
+			<th>{{Absent.Cours}}</th>
+			<th>{{Absent.motif}}</th>
+			<th><a class="btn btn-sm btn-info" href="{% url 'modifier_absent' Absent.id %}">Modifier l'absent</a></th>
+			<th><a class="btn btn-sm btn-danger" href="{% url 'supprimer_absent' Absent.id %}">Supprimer l'absent</a></th>
+			</tr>
+			{% endfor %}
+			</table>
+		</div>
+	</div>
+</div>
+
+<br>
+<div class="row">
+	<div class="col">
+		<div class="card card-body">
+			<form method="get">
+
+		    <button class="btn btn-primary" type="submit">Search</button>
+				{{myFilter.form}}
+		  </form>
+		</div>
+	</div>
+
+</div>
+<br>
+
+{% endblock %}

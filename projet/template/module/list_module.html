@@ -1,0 +1,35 @@
+{% extends 'main.html'%}
+
+{% block contenue%}
+	<div class="col-md-12">
+		<div class="card card-body">
+			<h5>Modules</h5>
+			<hr>
+			<a class="btn btn-primary  btn-sm btn-block" href="{% url 'ajout_module' %}">Ajouter un Module</a>
+			<table class="table table-sm">
+			<tr>
+				<th>id</th>
+				<th>Identifiant</th>
+				<th>Nom</th>
+				<th>Nombre heure</th>
+				<th>Semestre</th>
+				<th>Modifier</th>
+				<th>Supprimer</th>
+			</tr>
+			{% for Module in Modules %}
+			<tr>
+			<th><a href="">{{Module.id}}</a></th>
+			<th>{{Module.Identifiant}}</th>
+			<th>{{Module.nom}}</th>
+			<th>{{Module.nombre_heure}}</th>
+			<th>{{Module.semestre}}</th>
+			<th><a class="btn btn-sm btn-info" href="{% url 'modifier_module' Module.id %}">Modifier le module</a></th>
+			<th><a class="btn btn-sm btn-danger" href="{% url 'supprimer_module' Module.id %}">Supprimer le module</a></th>
+			</tr>
+			{% endfor %}
+			</table>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

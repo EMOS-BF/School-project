@@ -1,0 +1,75 @@
+{% extends 'main.html'%}
+
+{% block contenue %}
+<br>
+
+<div class="row">
+	<div class="col-md">
+		<div class="card card-body">
+			<h5>Elève:</h5>
+			<hr>
+			<a class="btn btn-outline-info  btn-sm btn-block" href="">Modifier un Elève</a>
+			<a class="btn btn-outline-danger  btn-sm btn-block" href="">Supprimer un Elève</a>
+
+		</div>
+	</div>
+
+	<div class="col-md">
+		<div class="card card-body">
+			<h5>Informations</h5>
+			<hr>
+			<p>Nom : {{Eleve.nom_eleve}} </p>
+			<p>Prenom : {{Eleve.prenom_eleve}} </p>
+			<p>classe: {{Eleve.classe}}</p>
+			<p>filiere: {{Eleve.filiere}}</p>
+		</div>
+	</div>
+
+	<div class="col-md">
+		<div class="card card-body">
+			<h5>Total des absences</h5>
+			<hr>
+			<h1 style="text-align: center;padding: 10px">{{Absence_total}}</h1>
+		</div>
+	</div>
+</div>
+<br>
+<div class="row">
+	<div class="col">
+		<div class="card card-body">
+			<form method="get">
+
+		    <button class="btn btn-primary" type="submit">Search</button>
+				{{myFilter.form}}
+		  </form>
+		</div>
+	</div>
+
+</div>
+<br>
+<div class="row">
+	<div class="col-md">
+		<div class="card card-body">
+			<table class="table table-sm">
+				<tr>
+					<th>Cours</th>
+					<th>Motif</th>
+					<th>Mise à Jour</th>
+					<th>Supprimer</th>
+				</tr>
+                {% for Absent in absent %}
+				<tr>
+					<th>{{Absent.Cours}}</th>
+					<th>{{Absent.motif}}</th>
+					<th><a href="">Mise à Jour</a></th>
+					<th><a href="">Supprimer</a></th>
+				</tr>
+				{% endfor %}
+
+			</table>
+		</div>
+	</div>
+</div>
+
+
+{% endblock %}
