@@ -1,11 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-
 #logo{
 height:50px;
 width:50px;
 		}
 #logos{
-height:50px;
+height:50%;
 width:20px;
 }
 #imgacceuil{
@@ -16,9 +15,13 @@ width:500px;
 			background-color: #ebeff5;
 			line-height: 1.5;
 	        font-family: 'Poppins', sans-serif;
-	        background-image: url("{% static 'images/epo.png' %}");
+	        background-image: url('school.jpg');
 		}
-
+		.cover{
+		height: 60%;
+		width:100%;
+		background-image: url('school.jpg');
+		}
 
 		#total-orders{
 			background-color: #4cb4c7;

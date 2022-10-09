@@ -9,7 +9,10 @@ from django.http import HttpResponse
 def list_module(request):
     Modules = Module.objects.all()
     context = {'Modules': Modules}
-    return render(request,'module/list_module.html',context)
+    if request.user.groups.filter(name='Supervision').exists() or request.user.groups.filter(name='Admin').exists() or request.user.groups.filter(name='GestionModule').exists():
+        return render(request,'module/list_module.html',context)
+    else:
+        return HttpResponse('<h1>Vous n\'est pas autorisé à voir ce contenu</h1>')
 
 @login_required(login_url='acces')
 def Ajouter_module(request):
@@ -20,7 +23,10 @@ def Ajouter_module(request):
             form.save()
             return redirect('module')
     context={'form':form}
-    return render(request, 'module/ajouter_module.html',context)
+    if request.user.groups.filter(name='Admin').exists() or request.user.groups.filter(name='GestionModule').exists():
+        return render(request, 'module/ajouter_module.html',context)
+    else:
+        return HttpResponse('<h1>Vous n\'est pas autorisé à voir ce contenu</h1>')
 
 @login_required(login_url='acces')
 def modifier_module(request,pk):
@@ -32,7 +38,10 @@ def modifier_module(request,pk):
             form.save()
             return redirect('module')
     context = {'form': form}
-    return render(request, 'module/ajouter_module.html', context)
+    if request.user.groups.filter(name='Admin').exists() or request.user.groups.filter(name='GestionModule').exists():
+        return render(request, 'module/ajouter_module.html', context)
+    else:
+        return HttpResponse('<h1>Vous n\'est pas autorisé à voir ce contenu</h1>')
 
 @login_required(login_url='acces')
 def supprimer_module(request,pk):
@@ -41,4 +50,7 @@ def supprimer_module(request,pk):
         module.delete()
         return redirect('module')
     context={'item':module}
-    return render(request, 'module/supprimer_module.html',context)
+    if request.user.groups.filter(name='Admin').exists() or request.user.groups.filter(name='GestionModule').exists():
+        return render(request, 'module/supprimer_module.html',context)
+    else:
+        return HttpResponse('<h1>Vous n\'est pas autorisé à voir ce contenu</h1>')

@@ -12,7 +12,10 @@ def list_absent(request):
     myFilter = AbsentFiltre(request.GET, queryset=absent)
     absent = myFilter.qs
     context={'Absents':absent,'myFilter': myFilter}
-    return render(request, 'absent/list_absent.html',context)
+    if request.user.groups.filter(name='Eleve').exists() or request.user.groups.filter(name='Admin').exists() or request.user.groups.filter(name='GestionAbsencesCours').exists() or request.user.groups.filter(name='Supervision').exists() :
+        return render(request, 'absent/list_absent.html',context)
+    else:
+        return HttpResponse('<h1>Vous n\'est pas autorisé à voir ce contenu</h1>')
 
 """def recherche(request):
     absent = Absent.objects.all()
@@ -30,7 +33,10 @@ def Ajouter_absent(request):
             form.save()
             return redirect('absent')
     context={'form':form}
-    return render(request, 'absent/ajouter_absent.html',context)
+    if request.user.groups.filter(name='Admin').exists() or request.user.groups.filter(name='GestionAbsencesCours').exists():
+        return render(request, 'absent/ajouter_absent.html',context)
+    else:
+        return HttpResponse('<h1>Vous n\'est pas autorisé à voir ce contenu</h1>')
 
 @login_required(login_url='acces')
 def modifier_absent(request,pk):
@@ -42,7 +48,10 @@ def modifier_absent(request,pk):
             form.save()
             return redirect('absent')
     context = {'form': form}
-    return render(request, 'absent/ajouter_absent.html', context)
+    if request.user.groups.filter(name='Admin').exists() or request.user.groups.filter(name='GestionAbsencesCours').exists():
+        return render(request, 'absent/ajouter_absent.html', context)
+    else:
+        return HttpResponse('<h1>Vous n\'est pas autorisé à voir ce contenu</h1>')
 
 
 @login_required(login_url='acces')
@@ -52,4 +61,7 @@ def supprimer_absent(request,pk):
         absent.delete()
         return redirect('absent')
     context={'item':absent}
-    return render(request, 'absent/supprimer_absent.html',context)
+    if request.user.groups.filter(name='Admin').exists() or request.user.groups.filter(name='GestionAbsencesCours').exists():
+        return render(request, 'absent/supprimer_absent.html',context)
+    else:
+        return HttpResponse('<h1>Vous n\'est pas autorisé à voir ce contenu</h1>')

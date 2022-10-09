@@ -4,6 +4,7 @@ from absent.models import Absent
 from .filters import EleveFiltre
 from .forms import EleveForm
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
 #from compte.decorators import allowed_users
 # Create your views here.
 from .models import *
@@ -12,7 +13,11 @@ from .models import *
 def home(request):
     Eleves=Eleve.objects.all()
     context = {'Eleves':Eleves}
-    return render(request, 'eleve/acceuil.html',context)
+    if request.user.groups.filter(name='Eleve').exists() or request.user.groups.filter(name='Admin').exists() or request.user.groups.filter(name='GestionAbsencesCours').exists() or request.user.groups.filter(name='Supervision').exists() :
+        return render(request, 'eleve/acceuil.html',context)
+    else:
+        return HttpResponse('<h1>Vous n\'est pas autorisé à voir ce contenu</h1>')
+
 
 @login_required(login_url='acces')
 #@allowed_users(allowed_roles=['Admin'])
@@ -23,7 +28,11 @@ def gestionIndividuel(request,pk):
     myFilter=EleveFiltre(request.GET,queryset=absent)
     absent=myFilter.qs
     context = {'Eleve': eleve,'absent':absent,'Absence_total':Absence_total,'myFilter':myFilter}
-    return render(request, 'eleve/gestionIdividuel.html',context)
+    if request.user.groups.filter(name='Eleve').exists() or request.user.groups.filter(name='Admin').exists() or request.user.groups.filter(name='GestionEleve').exists():
+        return render(request, 'eleve/gestionIdividuel.html',context)
+    else:
+        return HttpResponse('<h1>Vous n\'est pas autorisé à voir ce contenu</h1>')
+
 
 @login_required(login_url='acces')
 #@allowed_users(allowed_roles=['Admin'])
@@ -35,7 +44,11 @@ def Ajouter_eleve(request):
             form.save()
             return redirect('/')
     context={'form':form}
-    return render(request, 'eleve/ajouter_eleve.html',context)
+    if request.user.groups.filter(name='Admin').exists() or request.user.groups.filter(name='GestionEleve').exists():
+        return render(request, 'eleve/ajouter_eleve.html',context)
+    else:
+        return HttpResponse('<h1>Vous n\'est pas autorisé à voir ce contenu</h1>')
+
 
 @login_required(login_url='acces')
 #@allowed_users(allowed_roles=['Admin'])
@@ -48,7 +61,11 @@ def modifier_eleve(request,pk):
             form.save()
             return redirect('/')
     context = {'form': form}
-    return render(request, 'eleve/ajouter_eleve.html', context)
+    if request.user.groups.filter(name='Admin').exists() or request.user.groups.filter(name='GestionEleve').exists():
+        return render(request, 'eleve/ajouter_eleve.html', context)
+    else:
+        return HttpResponse('<h1>Vous n\'est pas autorisé à voir ce contenu</h1>')
+
 
 @login_required(login_url='acces')
 #@allowed_users(allowed_roles=['Admin'])
@@ -58,4 +75,8 @@ def supprimer_eleve(request,pk):
         eleve.delete()
         return redirect('/')
     context={'item':eleve}
-    return render(request, 'eleve/supprimer_eleve.html',context)
+    if request.user.groups.filter(name='Admin').exists() or request.user.groups.filter(name='GestionEleve').exists():
+        return render(request, 'eleve/supprimer_eleve.html',context)
+    else:
+        return HttpResponse('<h1>Vous n\'est pas autorisé à voir ce contenu</h1>')
+
