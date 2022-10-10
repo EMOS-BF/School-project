@@ -8,7 +8,6 @@ class Eleve(models.Model):
     date_de_naissance = models.CharField(max_length=200,verbose_name="date de naissance de l'élève",null=True)
     filiere = models.CharField(max_length=200,verbose_name="filière de l'élève",null=False)
     Classe = models.ForeignKey(Classe, on_delete=models.CASCADE, verbose_name="Classe",null=True)
-    classe = models.CharField(max_length=200,verbose_name="classe de l'élève",null=False)
     est_chef = models.BooleanField(default=False,verbose_name="Est chef de classe",null=False)
     class Meta:
         verbose_name="Liste des Elèves"
