@@ -47,6 +47,8 @@ INSTALLED_APPS = [
     'compte',
     'django_filters',
     'acceuil',
+    'classe',
+    'module_chaque_classe',
 
 ]
 

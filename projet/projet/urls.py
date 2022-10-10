@@ -25,4 +25,6 @@ urlpatterns = [
     path('eleve_autoriser_à_composer/',include('eleve_autoriser_à_composer.urls')),
     path('absent/',include('absent.urls')),
     path('compte/',include('compte.urls')),
+    path('classe/',include('classe.urls')),
+    path('classemodule/',include('classe.urls')),
 ]
